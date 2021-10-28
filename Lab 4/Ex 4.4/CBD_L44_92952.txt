@@ -1,0 +1,26 @@
+#NMEC:92952
+
+Temática: jogadores do mundial de 2018
+Dataset usado: https://www.kaggle.com/cclayford/2018-fifa-world-cup-squads
+
+#Entidades:
+
+Player: number, position, name, birth-date, age, caps, goals
+Country: 
+Club:
+
+#Relações:
+
+Team [Player->Country] - group
+Club [Player->Club]
+
+
+Set Up:
+
+-Create a database with the password "ronaldo"
+-Start Database
+-Add the CSV dataset to the imported files of the Database
+
+
+O código utilizado encontra-se em controller.py
+O resultado de todas as queries encontra-se no ficheiro output.txt

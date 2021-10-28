@@ -1,0 +1,16 @@
+  {"user_email": "maria@mail.com", "video_id": 9, "action_time": "2020-12-20 00:00:00.000Z", "video_seconds": 360, "action": "Stop"}
+    {"user_email": "xpto@mail.com", "video_id": 10, "action_time": "2020-12-20 00:00:00.000Z", "video_seconds": 0, "action": "Stop"}
+  {"user_email": "xpto@mail.com", "video_id": 10, "action_time": "2020-12-20 00:00:00.000Z", "video_seconds": 120, "action": "Play"}
+    {"user_email": "gamer@mail.com", "video_id": 5, "action_time": "2020-12-20 00:00:00.000Z", "video_seconds": 0, "action": "Play"}
+ {"user_email": "gamer@mail.com", "video_id": 5, "action_time": "2020-12-20 00:00:00.000Z", "video_seconds": 149, "action": "Pause"}
+  {"user_email": "gamer@mail.com", "video_id": 5, "action_time": "2020-12-20 00:00:00.000Z", "video_seconds": 150, "action": "Play"}
+    {"user_email": "maria@mail.com", "video_id": 1, "action_time": "2020-12-20 00:00:00.000Z", "video_seconds": 0, "action": "Play"}
+  {"user_email": "maria@mail.com", "video_id": 1, "action_time": "2020-12-20 00:00:00.000Z", "video_seconds": 19, "action": "Pause"}
+   {"user_email": "maria@mail.com", "video_id": 1, "action_time": "2020-12-20 00:00:00.000Z", "video_seconds": 20, "action": "Play"}
+  {"user_email": "maria@mail.com", "video_id": 1, "action_time": "2020-12-20 00:00:00.000Z", "video_seconds": 99, "action": "Pause"}
+  {"user_email": "maria@mail.com", "video_id": 1, "action_time": "2020-12-20 00:00:00.000Z", "video_seconds": 100, "action": "Play"}
+  {"user_email": "maria@mail.com", "video_id": 1, "action_time": "2020-12-20 00:00:00.000Z", "video_seconds": 500, "action": "Stop"}
+    {"user_email": "manel@mail.com", "video_id": 9, "action_time": "2020-12-20 00:00:00.000Z", "video_seconds": 0, "action": "Play"}
+   {"user_email": "yzx@mail.com", "video_id": 10, "action_time": "2020-12-20 00:00:00.000Z", "video_seconds": 29, "action": "Pause"}
+    {"user_email": "yzx@mail.com", "video_id": 10, "action_time": "2020-12-20 00:00:00.000Z", "video_seconds": 30, "action": "Play"}
+

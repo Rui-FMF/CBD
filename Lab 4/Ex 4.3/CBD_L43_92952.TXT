@@ -1,0 +1,104 @@
+#NMEC:92952
+
+#Entidades:
+
+User - svn_id, real_name, organization
+Project - name
+
+#Relações:
+
+Commited [User->Project] - num, role_on_project
+
+
+#SET UP:
+
+CREATE CONSTRAINT ON (project:Project) ASSERT project.project_name IS UNIQUE
+CREATE CONSTRAINT ON (user:Member) ASSERT user.svn_id IS UNIQUE
+
+#IMPORT NODES:
+
+LOAD CSV WITH HEADERS
+FROM "file:///git_selection.csv" AS Row
+MERGE (user:Member {svn_id: Row.svn_id})
+SET user.real_name=Row.real_name, user.organization=Row.organization
+MERGE (project:Project {project_name: Row.project_name})
+
+#IMPORT RELATIONS:
+
+LOAD CSV WITH HEADERS
+FROM "file:///git_selection.csv" AS Row
+MATCH (user:Member {svn_id: Row.svn_id}),(project:Project {project_name:Row.project_name})
+CREATE (user)-[:COMMITED {num: Row.num, role_on_project: Row.role_on_project}]->(project)
+
+
+#C)
+
+#1
+
+MATCH (user:Member)
+RETURN user
+
+#2
+
+MATCH (user:Member)
+RETURN DISTINCT user.real_name
+
+#3
+
+MATCH ()-[r:COMMITED]->(project:Project)
+WITH project, count(r) as rel_counter
+WHERE rel_counter >= 1
+RETURN project,rel_counter
+
+#4
+
+MATCH (user:Member)-[r:COMMITED]->()
+WITH user, count(r) as rel_counter
+RETURN user,rel_counter
+
+#5
+
+MATCH (user:Member)-[r:COMMITED]->()
+WITH user, count(r) as rel_counter
+RETURN user,rel_counter
+ORDER BY rel_counter DESC
+
+#6
+
+MATCH ()-[r:COMMITED]->(project:Project)
+WITH project, count(r) as rel_counter
+RETURN project, rel_counter
+
+#7
+
+MATCH ()-[r:COMMITED]->(project:Project)
+WITH project, count(r.role_on_project= "Committer") as rel_counter
+RETURN project, rel_counter
+
+#8
+
+MATCH (atm:Member {svn_id:"atm"})-[:COMMITED]->(project:Project)<-[:COMMITED]-(user2:Member)
+RETURN atm.real_name, user2.real_name, project.project_name
+
+#9
+
+MATCH (atm:Member {svn_id:"atm"})-[:COMMITED {role_on_project:"PMC"}]->(project:Project)<-[:COMMITED {role_on_project:"Committer"}]-(user2:Member)
+RETURN user2.real_name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

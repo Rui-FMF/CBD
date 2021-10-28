@@ -1,0 +1,151 @@
+b7)
+
+cqlsh:video_sharing> SELECT * FROM Videos WHERE author = 'manel@mail.com';
+
+ id | upload_time                     | author         | description              | tags                        | title
+----+---------------------------------+----------------+--------------------------+-----------------------------+------------------
+  1 | 2018-04-20 23:00:00.000000+0000 | manel@mail.com |   Eu a mostrar o quintal | ['Agriculture', 'Portugal'] |    A minha horta
+  9 | 2020-08-26 23:00:00.000000+0000 | manel@mail.com | Eu a mostrar as galinhas |       ['Birds', 'Portugal'] | A minha capoeira
+
+(2 rows)
+
+
+b8)
+
+cqlsh:video_sharing> SELECT * FROM Comments WHERE user_email = 'rosaxd@mail.com';
+
+ video_id | upload_time                     | comment      | user_email
+----------+---------------------------------+--------------+-----------------
+        5 | 2019-09-30 23:00:00.000000+0000 |  Boa receita | rosaxd@mail.com
+        1 | 2018-07-02 23:00:00.000000+0000 | Bons tomates | rosaxd@mail.com
+
+(2 rows)
+
+b9)
+
+cqlsh:video_sharing> SELECT * FROM Comments WHERE video_id = 1;
+
+ video_id | upload_time                     | comment                | user_email
+----------+---------------------------------+------------------------+-----------------
+        1 | 2020-12-01 00:00:00.000000+0000 | Comment by comment bot |   bot3@mail.com
+        1 | 2020-08-18 23:00:00.000000+0000 |                 Gostei |  maria@mail.com
+        1 | 2018-07-02 23:00:00.000000+0000 |           Bons tomates | rosaxd@mail.com
+
+(3 rows)
+
+b10)
+
+cqlsh:video_sharing> SELECT avg(rating) as average, count(rating) as numReviews FROM Ratings WHERE video_id = 3;
+
+ average | numreviews
+---------+------------
+       3 |          2
+
+(1 rows)
+
+
+d1)
+
+cqlsh:video_sharing> SELECT * FROM Comments WHERE video_id = 1 LIMIT 3;
+
+ video_id | upload_time                     | comment                | user_email
+----------+---------------------------------+------------------------+-----------------
+        1 | 2020-12-01 00:00:00.000000+0000 | Comment by comment bot |   bot3@mail.com
+        1 | 2020-08-18 23:00:00.000000+0000 |                 Gostei |  maria@mail.com
+        1 | 2018-07-02 23:00:00.000000+0000 |           Bons tomates | rosaxd@mail.com
+
+(3 rows)
+
+
+d2)
+
+cqlsh:video_sharing> SELECT tags FROM Videos WHERE id = 6;
+
+ tags
+------------------------------
+ ['Aveiro', 'City', 'Travel']
+
+(1 rows)
+
+d3)
+
+cqlsh:video_sharing> SELECT * FROM Videos WHERE tags CONTAINS 'Aveiro';
+
+ id | upload_time                     | author          | description                | tags                           | title
+----+---------------------------------+-----------------+----------------------------+--------------------------------+---------------------
+  6 | 2019-05-01 23:00:00.000000+0000 | rosaxd@mail.com |       My city is the best! |   ['Aveiro', 'City', 'Travel'] |      Showing Aveiro
+  3 | 2018-11-01 00:00:00.000000+0000 |   xpto@mail.com | Corrida de Moliceiros 2018 | ['Aveiro', 'Portugal', 'Boat'] | Boat Racing Aveiro!
+
+(2 rows)
+
+
+d4)
+
+cqlsh:video_sharing> SELECT * FROM Events WHERE user_email = 'maria@mail.com' AND video_id = 1 LIMIT 5;
+
+ user_email     | video_id | action_time                     | video_seconds | action
+----------------+----------+---------------------------------+---------------+--------
+ maria@mail.com |        1 | 2020-12-20 00:00:00.000000+0000 |             0 |   Play
+ maria@mail.com |        1 | 2020-12-20 00:00:00.000000+0000 |            19 |  Pause
+ maria@mail.com |        1 | 2020-12-20 00:00:00.000000+0000 |            20 |   Play
+ maria@mail.com |        1 | 2020-12-20 00:00:00.000000+0000 |            99 |  Pause
+ maria@mail.com |        1 | 2020-12-20 00:00:00.000000+0000 |           100 |   Play
+
+(5 rows)
+
+
+d5)
+
+cqlsh:video_sharing> SELECT * FROM Videos WHERE upload_time < '2019-08-01' AND author = 'manel@mail.com';
+
+ id | upload_time                     | author         | description              | tags                        | title
+----+---------------------------------+----------------+--------------------------+-----------------------------+------------------
+  1 | 2018-04-20 23:00:00.000000+0000 | manel@mail.com |   Eu a mostrar o quintal | ['Agriculture', 'Portugal'] |    A minha horta
+
+
+d6) Não é possível pois Cassandra não suporta Queries globais.
+
+d7)
+
+cqlsh:video_sharing> Select * from Followers WHERE video_id = 1;
+
+ video_id | user_email
+----------+----------------
+        1 |  bot2@mail.com
+        1 | manel@mail.com
+        1 | maria@mail.com
+        1 |   yzx@mail.com
+
+(4 rows)
+
+d8) ?
+
+
+d9) Não é possível pois Cassandra não suporta Queries globais.
+
+d10)
+
+cqlsh:video_sharing> SELECT * FROM Videos WHERE id in (3,4,5);
+
+ id | upload_time                     | author         | description                | tags                           | title
+----+---------------------------------+----------------+----------------------------+--------------------------------+-------------------------
+  3 | 2018-11-01 00:00:00.000000+0000 |  xpto@mail.com | Corrida de Moliceiros 2018 | ['Aveiro', 'Portugal', 'Boat'] |     Boat Racing Aveiro!
+  4 | 2020-02-12 00:00:00.000000+0000 | gamer@mail.com |                  ps: i won |             ['Gaming', 'CSGO'] |        CS GO Tournament
+  5 | 2018-12-21 00:00:00.000000+0000 |  xpto@mail.com |    Hope you like my recipe |           ['Culinary', 'Food'] | Making a nice carbonara
+
+(3 rows)
+
+d11) Para cada tag:
+
+cqlsh:video_sharing> SELECT COUNT(*) as count FROM Videos WHERE tags CONTAINS 'Aveiro';
+
+ count
+-------
+     2
+
+(1 rows)
+
+
+
+
+

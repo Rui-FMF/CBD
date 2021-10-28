@@ -1,0 +1,104 @@
+CREATE TABLE Users (username text, name text, email text, reg_time timestamp, Primary Key(email));
+
+CREATE TABLE Videos (id int, author text, title text, description text, tags list<text>, upload_time timestamp, Primary Key(id, upload_time)) WITH CLUSTERING ORDER BY (upload_time DESC);
+
+CREATE TABLE Comments (video_id int, user_email text, comment text, upload_time timestamp, PRIMARY KEY(video_id, upload_time)) WITH CLUSTERING ORDER BY (upload_time DESC);
+
+CREATE TABLE Followers (video_id int, user_email text, PRIMARY KEY(video_id, user_email));
+
+CREATE TABLE Events (user_email text, video_id int, action text, action_time timestamp, video_seconds int, PRIMARY KEY((user_email, video_id), action_time, video_seconds)) WITH CLUSTERING ORDER BY (action_time DESC);
+
+CREATE TABLE Ratings (id int, video_id int, rating int, PRIMARY KEY(id));
+
+
+INSERT INTO Users (email, name, reg_time, username) VALUES ('manel@mail.com', 'Manel', '2017-05-05', 'MegaManel');
+INSERT INTO Users (email, name, reg_time, username) VALUES ('maria@mail.com', 'Maria', '2018-04-21', 'Maria123');
+INSERT INTO Users (email, name, reg_time, username) VALUES ('rosaxd@mail.com', 'Rosa', '2018-10-15', 'FoodLover');
+INSERT INTO Users (email, name, reg_time, username) VALUES ('gamer@mail.com', 'Joe', '2019-10-25', 'XXGamerXX');
+INSERT INTO Users (email, name, reg_time, username) VALUES ('luis44@mail.com', 'Luis Silva', '2017-06-01', 'LS4455');
+INSERT INTO Users (email, name, reg_time, username) VALUES ('xpto@mail.com', 'Xico', '2017-07-05', 'XPTO');
+INSERT INTO Users (email, name, reg_time, username) VALUES ('yzx@mail.com', 'Yanick', '2019-11-11', 'YZX');
+INSERT INTO Users (email, name, reg_time, username) VALUES ('bot1@mail.com', 'BotBom', '2020-11-08', 'BotB');
+INSERT INTO Users (email, name, reg_time, username) VALUES ('bot2@mail.com', 'BotMau', '2020-12-20', 'BotM');
+INSERT INTO Users (email, name, reg_time, username) VALUES ('bot3@mail.com', 'BotSó', '2020-11-08', 'BotS');
+
+
+INSERT INTO Videos (id, upload_time, author, description, tags, title) VALUES (1, '2018-04-21', 'manel@mail.com', 'Eu a mostrar o quintal', ['Agriculture','Portugal'], 'A minha horta');
+INSERT INTO Videos (id, upload_time, author, description, tags, title) VALUES (2, '2019-05-26', 'luis44@mail.com', 'Explaining MongoDB', ['Programming','Databases'], 'MongoDB tutorial 1');
+INSERT INTO Videos (id, upload_time, author, description, tags, title) VALUES (3, '2018-11-01', 'xpto@mail.com', 'Corrida de Moliceiros 2018', ['Aveiro','Portugal', 'Boat'], 'Boat Racing Aveiro!');
+INSERT INTO Videos (id, upload_time, author, description, tags, title) VALUES (4, '2020-02-12', 'gamer@mail.com', 'ps: i won', ['Gaming','CSGO'], 'CS GO Tournament');
+INSERT INTO Videos (id, upload_time, author, description, tags, title) VALUES (5, '2018-12-21', 'xpto@mail.com', 'Hope you like my recipe', ['Culinary','Food'], 'Making a nice carbonara');
+INSERT INTO Videos (id, upload_time, author, description, tags, title) VALUES (6, '2019-05-02', 'rosaxd@mail.com', 'My city is the best!', ['Aveiro','City','Travel'], 'Showing Aveiro');
+INSERT INTO Videos (id, upload_time, author, description, tags, title) VALUES (7, '2017-04-30', 'bot2@mail.com', '&%?!#*+@$', ['???','Hacking'], 'How to Trojan tutorial');
+INSERT INTO Videos (id, upload_time, author, description, tags, title) VALUES (8, '2020-09-20', 'bot1@mail.com', 'Stay safe!!', ['Health','Pandemic'], 'Covid-19 Dos and Donts');
+INSERT INTO Videos (id, upload_time, author, description, tags, title) VALUES (9, '2020-08-27', 'manel@mail.com', 'Eu a mostrar as galinhas', ['Birds','Portugal'], 'A minha capoeira');
+INSERT INTO Videos (id, upload_time, author, description, tags, title) VALUES (10, '2020-07-19', 'maria@mail.com', 'No proximo video leio mais', ['Reading','Literature','Portugal'], 'Os Lusiadas Canto I');
+
+
+
+INSERT INTO Comments(video_id, upload_time, comment, user_email) VALUES (1, '2020-08-19', 'Gostei', 'maria@mail.com');
+INSERT INTO Comments(video_id, upload_time, comment, user_email) VALUES (2, '2020-08-22', 'Good Video!', 'xpto@mail.com');
+INSERT INTO Comments(video_id, upload_time, comment, user_email) VALUES (5, '2019-10-01', 'Boa receita', 'rosaxd@mail.com');
+INSERT INTO Comments(video_id, upload_time, comment, user_email) VALUES (4, '2020-02-18', 'Tá Fixe', 'yzx@mail.com');
+INSERT INTO Comments(video_id, upload_time, comment, user_email) VALUES (7, '2020-08-19', 'This isnt good...', 'bot1@mail.com');
+INSERT INTO Comments(video_id, upload_time, comment, user_email) VALUES (1, '2018-07-03', 'Bons tomates', 'rosaxd@mail.com');
+INSERT INTO Comments(video_id, upload_time, comment, user_email) VALUES (3, '2019-12-19', 'Is that db safe?', 'bot2@mail.com');
+INSERT INTO Comments(video_id, upload_time, comment, user_email) VALUES (6, '2020-01-01', 'Great place', 'maria@mail.com');
+INSERT INTO Comments(video_id, upload_time, comment, user_email) VALUES (1, '2020-12-01', 'Comment by comment bot', 'bot3@mail.com');
+INSERT INTO Comments(video_id, upload_time, comment, user_email) VALUES (8, '2020-12-01', 'Comment by comment bot', 'bot3@mail.com');
+
+
+INSERT INTO Followers (video_id, user_email) VALUES(1,'maria@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(2,'xpto@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(3,'xpto@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(4,'yzx@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(1,'yzx@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(2,'rosaxd@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(6,'bot3@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(9,'manel@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(9,'bot3@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(3,'bot2@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(1,'bot2@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(5,'xpto@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(1,'manel@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(10,'gamer@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(10,'rosaxd@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(10,'manel@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(7,'gamer@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(9,'luis44@mail.com');
+INSERT INTO Followers (video_id, user_email) VALUES(8,'luis44@mail.com');
+
+
+
+INSERT INTO Events (user_email, video_id, action_time, video_seconds, action) VALUES ('maria@mail.com', 1, '2020-12-20', 0, 'Play');
+INSERT INTO Events (user_email, video_id, action_time, video_seconds, action) VALUES ('maria@mail.com', 1, '2020-12-20', 19, 'Pause');
+INSERT INTO Events (user_email, video_id, action_time, video_seconds, action) VALUES ('maria@mail.com', 1, '2020-12-20', 20, 'Play');
+INSERT INTO Events (user_email, video_id, action_time, video_seconds, action) VALUES ('maria@mail.com', 1, '2020-12-20', 99, 'Pause');
+INSERT INTO Events (user_email, video_id, action_time, video_seconds, action) VALUES ('maria@mail.com', 1, '2020-12-20', 100, 'Play');
+INSERT INTO Events (user_email, video_id, action_time, video_seconds, action) VALUES ('maria@mail.com', 1, '2020-12-20', 500, 'Stop');
+INSERT INTO Events (user_email, video_id, action_time, video_seconds, action) VALUES ('gamer@mail.com', 5, '2020-12-20', 0, 'Play');
+INSERT INTO Events (user_email, video_id, action_time, video_seconds, action) VALUES ('gamer@mail.com', 5, '2020-12-20', 149, 'Pause');
+INSERT INTO Events (user_email, video_id, action_time, video_seconds, action) VALUES ('gamer@mail.com', 5, '2020-12-20', 150, 'Play');
+INSERT INTO Events (user_email, video_id, action_time, video_seconds, action) VALUES ('manel@mail.com', 9, '2020-12-20', 0, 'Play');
+INSERT INTO Events (user_email, video_id, action_time, video_seconds, action) VALUES ('maria@mail.com', 9, '2020-12-20', 360, 'Stop');
+INSERT INTO Events (user_email, video_id, action_time, video_seconds, action) VALUES ('xpto@mail.com', 10, '2020-12-20', 120, 'Play');
+INSERT INTO Events (user_email, video_id, action_time, video_seconds, action) VALUES ('xpto@mail.com', 10, '2020-12-20', 0, 'Stop');
+INSERT INTO Events (user_email, video_id, action_time, video_seconds, action) VALUES ('yzx@mail.com', 10, '2020-12-20', 29, 'Pause');
+INSERT INTO Events (user_email, video_id, action_time, video_seconds, action) VALUES ('yzx@mail.com', 10, '2020-12-20', 30, 'Play');
+
+
+
+INSERT INTO Ratings (id, rating, video_id) VALUES (1,5,1);
+INSERT INTO Ratings (id, rating, video_id) VALUES (2,5,3);
+INSERT INTO Ratings (id, rating, video_id) VALUES (3,4,4);
+INSERT INTO Ratings (id, rating, video_id) VALUES (4,4,2);
+INSERT INTO Ratings (id, rating, video_id) VALUES (5,3,6);
+INSERT INTO Ratings (id, rating, video_id) VALUES (6,3,7);
+INSERT INTO Ratings (id, rating, video_id) VALUES (7,2,10);
+INSERT INTO Ratings (id, rating, video_id) VALUES (8,2,9);
+INSERT INTO Ratings (id, rating, video_id) VALUES (9,1,9);
+INSERT INTO Ratings (id, rating, video_id) VALUES (10,1,1);
+INSERT INTO Ratings (id, rating, video_id) VALUES (11,1,3);
+INSERT INTO Ratings (id, rating, video_id) VALUES (12,2,7);
+INSERT INTO Ratings (id, rating, video_id) VALUES (13,3,6);
+INSERT INTO Ratings (id, rating, video_id) VALUES (14,5,8);

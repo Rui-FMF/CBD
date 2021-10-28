@@ -1,0 +1,100 @@
+Hset book:3 name "Cats"
+Hget Book:3 name
+Hget book:3 name
+hmset book:4 name "Lusiadas" author "Camoes" copyrightYear 1580 ISBN 22211133
+hmget book:4 author ISBN
+Hgetall book:4
+hexists book:4 copyrightYear
+hexists book:4 barcode
+hlen book:4
+hkeys book:4
+hvals book:4
+hdel book:4 copyrightYear
+Hgetall book:4
+hset book:4 copyrightYear 1579
+hget book:4 copyrightYear
+HIncrby book:4 copyrightYear 1
+hget book:4 copyrightYear
+set Organization:5 "Beatles"
+sadd Organization:5:member Paul John George Ringo
+smembers Organization:5:member
+sismember Organization:5:member "John"
+sismember Organization:5:member "Rafa"
+scard Organization:5:member
+SET Organization:6 "Wings"
+SET Organization:7 "Traveling Wilburys"
+SADD Organization:6:member Paul Linda Denny
+SADD Organization:7:member Bob George Jeff Roy Tom
+Sunion Organization:5:member Organization:6:6member
+Sunion Organization:5:member Organization:6:member
+Sunion Organization:6:member Organization:7:member
+Sunion Organization:6:member Organization:7:member Organization:5:member
+Sinter Organization:5:member Organization:7:member
+Sinter Organization:5:member Organization:6:member
+Sinter Organization:7:member Organization:6:member
+Sdiff Organization:5:member Organization:6:member
+Sdiff Organization:6:member Organization:5:member
+zadd copyrightYear 1996 Book:1 2014 Book:2 1963 Book:3
+zadd copyrightYear 1580 book:4
+zrange copyrightYear
+zrange copyrightYear 0 -1
+zrange copyrightYear 0 -1 withscores
+zrevrange copyrightYear 0 -1
+zrevrange copyrightYear 0 -1 withscores
+z a
+zadd Book:names 0 "Into the Wild" 0 "Cat Cradle"
+zadd Book:names 0 "Time Machine, The" 0 "Gravity Rainbow"
+zrange Book:names 0 -1 withscores
+zrank copyrightYear Book:3
+zrank copyrightYear Book:1
+zrank copyrightYear Book:56
+zscore copyrightYear Book:3
+zscore copyrightYear Book:1
+zrange copyrightYear 0 -1 withscores
+zcount copyrightYear 1900 1970
+zrangebyscore copyrightYear 1900 1970 witchscores
+zrangebyscore copyrightYear 1900 1970 withscores
+zrangebyscore copyrightYear -inf 2000 withscores
+zrangebyscore copyrightYear 1990 +inf withscores
+set Movie:1 "Blade Runner"
+Hset Movie:2 name "Star Wars"
+sadd Movie:3 "2001 a Space Odyssey"
+setbit Movie:UserPlays:2014-12-11 2 1
+getbit Movie:UserPlays:2014-12-11 2 
+bitcount Movie:UserPlays:2014-12-11
+bitpos Movie:UserPlays:2014-12-11
+bitpos Movie:UserPlays:2014-12-11 1
+bitpos Movie:UserPlays:2014-12-11 0
+setbit Movie:UserPlays:2014-12-12 2 1
+setbit Movie:UserPlays:2014-12-12 1 1
+bitop and and_result Movie:UserPlays:2014-12-11 Movie:UserPlays:2014-12-12
+getbit and_result 1
+getbit and_result 2
+getbit and_result 3
+bitop or or_result Movie:UserPlays:2014-12-11 Movie:UserPlays:20
+getbit or_result 1
+getbit or_result 2
+bitop or or_result Movie:UserPlays:2014-12-11 Movie:UserPlays:2014-12-12
+getbit or_result 1
+getbit or_result 2
+getbit or_result 3
+bitop xor xor_result Movie:UserPlays:2014-12-11 Movie:UserPlays:2014-12-12
+getbit xor_result 1
+getbit xor_result 2
+getbit xor_result 3
+bitop Not not_result Movie:UserPlays:2014-12-11
+getbit not_result 1
+getbit not_result 2
+getbit not_result 3
+PFADD EducationEvent:1:attendee Person:1 Person:2 Person:3 Person:44556
+pfcount EducationEvent:1:attendee
+pfadd LiteraryEvent:1:attendee Person:4 Person:1
+pfmerge Event:attendee EducationEvent:1:attendee LiteraryEvent:1:attendee
+pfcount Event:attendee
+save
+set keytest valtest
+expire keytest 20
+ttl keytest
+persist keytest
+ttl keytest
+del keytest
